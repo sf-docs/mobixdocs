@@ -1,1 +1,26 @@
-site_name: My Docs
+site_name: Documentation
+
+theme:
+  name: material
+  palette:
+    primary: white
+
+markdown_extensions:
+  - meta
+  - abbr
+  - pymdownx.snippets
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      linenums: true
+      anchor_linenums: true
+      use_pygments: false
+      auto_title: true
+      linenums_style: pymdownx-inline
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - attr_list
+  - md_in_html
