@@ -1,9 +1,146 @@
 site_name: Documentation
+nav:
+  - General information:
+    - gi/index.md
+    - gi/product_overview.md
+    - gi/user_workplace_requirements.md
+    - gi/glossary.md
+  - User guide:
+    - ug/index.md
+    - ug/user_authentication.md
+    - ug/main_menu.md
+    - ug/projects.md
+    - ug/rules.md
+    - ug/profile.md
+    - ug/scan_results.md
+    - ug/scan_launch.md
+    - ug/testcases.md
+    - ug/standarty.md
+    - ug/user_profile.md
+    - ag/companies.md
+  # - Installation and integration guide:
+  - Remediation Guide:
+    - rg/index.md
+    - Android:
+      - Insecure storage of cryptographic key information:
+        - rg/en/android/a_writable_keystore.md
+        - rg/en/android/a_keystore_with_write_permission_protected_by_a_weak_password.md
+        - rg/en/android/readable_file_keystore.md
+        - rg/en/android/a_readable_keystore,_protected_by_a_weak_password,_with_private_keys.md
+        - rg/en/android/a_readable_keystore,_protected_by_a_weak_password,_with_public_keys.md
+        - rg/en/android/a_readable_keystore_containing_private_keys_protected_by_a_weak_password.md
+        - rg/en/android/using_a_file_keystore.md
+        - rg/en/android/a_keystore,_protected_by_weak_password,_containing_private_keys.md
+        - rg/en/android/a_keystore,_protected_by_weak_password,_containing_public_keys.md
+        - rg/en/android/a_keystore_containing_private_keys_protected_by_a_weak_password.md
+      - Transmission of sensitive information in Activity:
+        - rg/en/android/insecure_transmission_of_sensitive_information_in_activity.md
+        - rg/en/android/insecure_transmission_of_sensitive_information_in_external_activity.md
+        - rg/en/android/insecure_transmission_of_sensitive_information_in_private_activity.md
+      - Transmission of sensitive information in Service:
+        - rg/en/android/insecure_transmission_of_sensitive_information_in_service.md
+        - rg/en/android/insecure_transmission_of_sensitive_information_in_external_service.md
+        - rg/en/android/insecure_transmission_of_sensitive_information_in_internal_service.md
+      - Sending sensitive information over the network:
+        - rg/en/android/inclusion_of_sensitive_information_into_the_get_request_parameters.md
+        - rg/en/android/inclusion_of_sensitive_information_into_an_https_request.md
+        - rg/en/android/transmission_of_sensitive_information_in_an_http_request.md
+        - rg/en/android/transmission_of_sensitive_information_in_an_http_response.md
+        - rg/en/android/inclusion_of_sensitive_information_into_an_https_response.md
+      - Storing sensitive information:
+        - rg/en/android/storing_sensitive_information_in_memory.md
+        - rg/en/android/storing_sensitive_information_in_a_public_file_outside_the_application_s_directory.md
+        - rg/en/android/storing_sensitive_information_in_a_public_file_inside_the_application_s_directory.md
+        - rg/en/android/storing_sensitive_information_in_a_private_file_outside_the_application_s_directory.md
+        - rg/en/android/storing_sensitive_information_in_a_private_file_inside_the_application_s_directory.md
+        - rg/en/android/storing_sensitive_information_in_a_public_protected_database.md
+        - rg/en/android/storing_sensitive_information_in_a_protected_database.md
+        - rg/en/android/storing_sensitive_information_in_an_insecure_database.md
+        - rg/en/android/storing_sensitive_information_in_a_public_unprotected_database.md
+        - rg/en/android/storing_sensitive_information_in_the_application_source_code.md
+        - rg/en/android/storage_or_use_of_previously_found_sensitive_information.md
+        - rg/en/android/storing_sensitive_information_in_the_keyboard_cache.md
+      - Storing keys/certificates:
+        - rg/en/android/storing_a_private_key_certificate_that_is_not_protected_by_a_password_in_the_directory_resources_of_the_application.md
+        - rg/en/android/storing_a_public_key_certificate_in_the_directory_resources_of_the_application.md
+        - rg/en/android/storing_a_private_key_certificate_protected_by_a_password_in_the_directory_resources_of_the_application.md
+        - rg/en/android/storing_a_key_certificate_in_the_directory_resources_of_the_application.md
+      - rg/en/android/output_of_sensitive_information_into_the_system_log.md
+      - rg/en/android/insecure_signature_algorithm.md
+      - rg/en/android/insufficient_length_of_a_signature_key.md
+      - rg/en/android/transmission_of_sensitive_information_in_broadcastreceiver.md
+      - rg/en/android/transmission_of_sensitive_information_to_a_private_broadcastreceiver.md
+      - rg/en/android/transmission_of_sensitive_information_in_sql_query_parameters.md
+      - rg/en/android/possibility_to_create_a_backup_copy_of_the_application.md
+      - rg/en/android/application_is_not_obfuscated.md
+      - rg/en/android/weak_database_encryption_password.md
+      - rg/en/android/interception_of_the_database_encryption_password.md
+      - rg/en/android/an_application_allows_network_connections_via_http.md
+      - rg/en/android/insecure_networking_configuration.md
+      - rg/en/android/potential_execution_of_arbitrary_code_within_the_application.md
+      - rg/en/android/storing_cookie_values_in_the_standard_webview_database.md
+      - rg/en/android/insecure_settings_in_androidmanifest.xml.md
+      - rg/en/android/insecure_settings_in_androidmanifest.xml._the_android_hasfragileuserdata_flag.md
+      - rg/en/android/insecure_settings_in_androidmanifest.xml._the_android_requestlegacyexternalstorage_flag.md
+      - rg/en/android/ssl-pinning_is_missing_or_incorrectly_realized.md
+      - rg/en/android/ability_to_run_private_activity_indirectly.md
+      - rg/en/android/url_spoofing_possibility.md
+      - rg/en/android/ability_to_open_an_arbitrary_url_in_webview.md
+      - rg/en/android/access_to_an_arbitrary_file.md
+      - rg/en/android/access_to_an_arbitrary_contentprovider.md
+      - rg/en/android/ability_to_access_an_arbitrary_file_via_contentprovider.md
+    - iOS:
+      - Storing keys/certificates:
+        - rg/en/ios/storing_a_key_certificate_in_the_directory_resources_of_the_application_ios.md
+        - rg/en/ios/storing_a_private_key_certificate_protected_by_a_password_in_the_directory_resources_of_the_application_ios.md
+        - rg/en/ios/storing_a_public_key_certificate_in_the_directory_resources_of_the_application_ios.md
+        - rg/en/ios/storing_a_private_key_certificate_that_is_not_protected_by_a_password_in_the_directory_resources_of_the_application_ios.md
+      - Insecure storage of cryptographic key information:
+        - rg/en/ios/a_writable_keystore_ios.md
+        - rg/en/ios/a_keystore_with_write_permission_protected_by_a_weak_password_ios.md
+        - rg/en/ios/readable_file_keystore_ios.md
+        - rg/en/ios/a_readable_keystore,_protected_by_a_weak_password,_with_private_keys_ios.md
+        - rg/en/ios/a_readable_keystore,_protected_by_a_weak_password,_with_public_keys_ios.md
+        - rg/en/ios/a_readable_keystore_containing_private_keys_protected_by_a_weak_password_ios.md
+        - rg/en/ios/using_a_file_keystore_ios.md
+        - rg/en/ios/a_keystore,_protected_by_weak_password,_containing_private_keys_ios.md
+        - rg/en/ios/a_keystore,_protected_by_weak_password,_containing_public_keys_ios.md
+        - rg/en/ios/a_keystore_containing_private_keys_protected_by_a_weak_password_ios.md
+      - rg/en/ios/enabled_caching_of_network_requests_ios.md
+      - rg/en/ios/output_of_sensitive_information_into_the_system_log_ios.md
+      - rg/en/ios/insecure_app_transport_security_configuration_ios.md
+      - rg/en/ios/application_does_not_use_overflow_protection_features_ios.md
+      - rg/en/ios/presence_of_build_scripts_in_the_built_application_package_ios.md
+      - rg/en/ios/presence_of_podfile_in_the_built_application_package_ios.md
+      - rg/en/ios/storing_sensitive_information_in_the_keyboard_cache_ios.md
+      - rg/en/ios/storing_sensitive_information_in_nsuserdefaults_ios.md
+      - rg/en/ios/storing_sensitive_information_in_a_private_file_ios.md
+      - rg/en/ios/storing_sensitive_information_in_the_application_source_code_ios.md
+      - rg/en/ios/storing_sensitive_information_in_binary_cookies_ios.md
+      - rg/en/ios/storage_or_use_of_previously_found_sensitive_information_ios.md
+  
+  - FAQ: faq/index.md
+
+
 
 theme:
   name: material
+  # logo: assets/logo.png
+  # favicon: assets/favicon.png
+  # custom_dir: overrides
   palette:
     primary: white
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.expand
+    - navigation.indexes
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.shares
+    - content.code.annotate
+    - content.tabs.link
 
 markdown_extensions:
   - meta
