@@ -1,0 +1,3064 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
+    
+    
+      
+        <title>SSL-Pinning is missing or incorrectly implemented - Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ffffff">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="white" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ssl-pinning-is-missing-or-incorrectly-implemented" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SSL-Pinning is missing or incorrectly implemented
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../gi/" class="md-tabs__link">
+        General information
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../ug/" class="md-tabs__link">
+        User guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../" class="md-tabs__link md-tabs__link--active">
+        Remediation Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../faq/" class="md-tabs__link">
+      FAQ
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../../gi/">General information</a>
+          
+            <label for="__nav_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="General information" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          General information
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../gi/product_overview/" class="md-nav__link">
+        Product Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../gi/user_workplace_requirements/" class="md-nav__link">
+        User Workplace Requirements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../gi/glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../../ug/">User guide</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="User guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          User guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/user_authentication/" class="md-nav__link">
+        User Authentication
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/main_menu/" class="md-nav__link">
+        Main Menu
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/projects/" class="md-nav__link">
+        Projects
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/rules/" class="md-nav__link">
+        Rules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/profile/" class="md-nav__link">
+        Profiles
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/scan_results/" class="md-nav__link">
+        Scan Results
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/scan_launch/" class="md-nav__link">
+        Scan Launch
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/testcases/" class="md-nav__link">
+        Test Cases
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/standarty/" class="md-nav__link">
+        Standards
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/user_profile/" class="md-nav__link">
+        User Profile
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ag/companies.md" class="md-nav__link">
+        None
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../">Remediation Guide</a>
+          
+            <label for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Remediation Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Remediation Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2">
+          Android
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Android" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Android
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_2_1" type="checkbox" id="__nav_3_2_1" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_1">
+          Insecure storage of cryptographic key information
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Insecure storage of cryptographic key information" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Insecure storage of cryptographic key information
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a_writable_keystore/" class="md-nav__link">
+        A writable keystore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a_keystore_with_write_permission_protected_by_a_weak_password/" class="md-nav__link">
+        A writable keystore protected by a weak password
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../readable_file_keystore/" class="md-nav__link">
+        A readable file keystore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a_readable_keystore%2C_protected_by_a_weak_password%2C_with_private_keys/" class="md-nav__link">
+        A readable keystore, protected by a weak password, containing private keys
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a_readable_keystore%2C_protected_by_a_weak_password%2C_with_public_keys/" class="md-nav__link">
+        A readable keystore, protected by a weak password, containing public keys
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a_readable_keystore_containing_private_keys_protected_by_a_weak_password/" class="md-nav__link">
+        A readable keystore containing private keys protected by a weak password
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../using_a_file_keystore/" class="md-nav__link">
+        Using a file keystore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a_keystore%2C_protected_by_weak_password%2C_containing_private_keys/" class="md-nav__link">
+        A keystore, protected by а weak password, containing private keys
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a_keystore%2C_protected_by_weak_password%2C_containing_public_keys/" class="md-nav__link">
+        A keystore, protected by a weak password, containing public keys
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a_keystore_containing_private_keys_protected_by_a_weak_password/" class="md-nav__link">
+        A keystore containing private keys protected by a weak password
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_2_2" type="checkbox" id="__nav_3_2_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_2">
+          Transmission of sensitive information in Activity
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Transmission of sensitive information in Activity" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Transmission of sensitive information in Activity
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../insecure_transmission_of_sensitive_information_in_activity/" class="md-nav__link">
+        Insecure transmission of sensitive information in Activity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../insecure_transmission_of_sensitive_information_in_external_activity/" class="md-nav__link">
+        Insecure transmission of sensitive information in external Activity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../insecure_transmission_of_sensitive_information_in_private_activity/" class="md-nav__link">
+        Insecure transmission of sensitive information in private Activity
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_2_3" type="checkbox" id="__nav_3_2_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_3">
+          Transmission of sensitive information in Service
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Transmission of sensitive information in Service" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Transmission of sensitive information in Service
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../insecure_transmission_of_sensitive_information_in_service/" class="md-nav__link">
+        Insecure transmission of sensitive information in Service
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../insecure_transmission_of_sensitive_information_in_external_service/" class="md-nav__link">
+        Insecure transmission of sensitive information in external Service
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../insecure_transmission_of_sensitive_information_in_internal_service/" class="md-nav__link">
+        Insecure transmission of sensitive information in internal Service
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_2_4" type="checkbox" id="__nav_3_2_4" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_4">
+          Sending sensitive information over the network
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Sending sensitive information over the network" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Sending sensitive information over the network
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inclusion_of_sensitive_information_into_the_get_request_parameters/" class="md-nav__link">
+        Including sensitive information into the GET request parameters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inclusion_of_sensitive_information_into_an_https_request/" class="md-nav__link">
+        Including sensitive information into an HTTPS request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transmission_of_sensitive_information_in_an_http_request/" class="md-nav__link">
+        Sending sensitive information in an HTTP request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transmission_of_sensitive_information_in_an_http_response/" class="md-nav__link">
+        Getting sensitive information in an HTTP response
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inclusion_of_sensitive_information_into_an_https_response/" class="md-nav__link">
+        Getting sensitive information in an HTTPS response
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_2_5" type="checkbox" id="__nav_3_2_5" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_5">
+          Storing sensitive information
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Storing sensitive information" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Storing sensitive information
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_sensitive_information_in_memory/" class="md-nav__link">
+        Storing sensitive information in memory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_sensitive_information_in_a_public_file_outside_the_application_s_directory/" class="md-nav__link">
+        Storing sensitive information in a public file outside the application's directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_sensitive_information_in_a_public_file_inside_the_application_s_directory/" class="md-nav__link">
+        Storing sensitive information in a public file inside the application's directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_sensitive_information_in_a_private_file_outside_the_application_s_directory/" class="md-nav__link">
+        Storing sensitive information in a private file outside the application's directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_sensitive_information_in_a_private_file_inside_the_application_s_directory/" class="md-nav__link">
+        Storing sensitive information in a private file inside the application's directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_sensitive_information_in_a_public_protected_database/" class="md-nav__link">
+        Storing sensitive information in a public protected database
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_sensitive_information_in_a_protected_database/" class="md-nav__link">
+        Storing sensitive information in a protected database
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_sensitive_information_in_an_insecure_database/" class="md-nav__link">
+        Storing sensitive information in an unprotected database
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_sensitive_information_in_a_public_unprotected_database/" class="md-nav__link">
+        Storing sensitive information in a public unprotected database
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_sensitive_information_in_the_application_source_code/" class="md-nav__link">
+        Storing sensitive information in the application source code
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storage_or_use_of_previously_found_sensitive_information/" class="md-nav__link">
+        Storage or use of previously found sensitive information
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_sensitive_information_in_the_keyboard_cache/" class="md-nav__link">
+        Storing sensitive information in the keyboard cache
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_2_6" type="checkbox" id="__nav_3_2_6" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_6">
+          Storing keys/certificates
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Storing keys/certificates" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Storing keys/certificates
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_a_private_key_certificate_that_is_not_protected_by_a_password_in_the_directory_resources_of_the_application/" class="md-nav__link">
+        Storing a private key/certificate that is not protected by a password in the directory/resources of the application
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_a_public_key_certificate_in_the_directory_resources_of_the_application/" class="md-nav__link">
+        Storing a public key/certificate in the directory/resources of the application
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_a_private_key_certificate_protected_by_a_password_in_the_directory_resources_of_the_application/" class="md-nav__link">
+        Storing a private key/certificate protected by a password in the directory/resources of the application
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_a_key_certificate_in_the_directory_resources_of_the_application/" class="md-nav__link">
+        Storing a key/certificate in the directory/resources of the application
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../output_of_sensitive_information_into_the_system_log/" class="md-nav__link">
+        Output of sensitive information into the system log
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../insecure_signature_algorithm/" class="md-nav__link">
+        Insecure Signature Algorithm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../insufficient_length_of_a_signature_key/" class="md-nav__link">
+        Insufficient length of a signature key
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transmission_of_sensitive_information_in_broadcastreceiver/" class="md-nav__link">
+        Transmission of sensitive information in BroadcastReceiver
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transmission_of_sensitive_information_to_a_private_broadcastreceiver/" class="md-nav__link">
+        Transmission of sensitive information in a private BroadcastReceiver
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transmission_of_sensitive_information_in_sql_query_parameters/" class="md-nav__link">
+        Transmission of sensitive information in SQL query parameters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../possibility_to_create_a_backup_copy_of_the_application/" class="md-nav__link">
+        Possibility to create a backup copy of the application
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../application_is_not_obfuscated/" class="md-nav__link">
+        Application is not obfuscated
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../weak_database_encryption_password/" class="md-nav__link">
+        Weak database encryption password
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interception_of_the_database_encryption_password/" class="md-nav__link">
+        Interception of a database encryption password
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../an_application_allows_network_connections_via_http/" class="md-nav__link">
+        An application allows network connections via HTTP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../insecure_networking_configuration/" class="md-nav__link">
+        Insecure networking configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../potential_execution_of_arbitrary_code_within_the_application/" class="md-nav__link">
+        Potential execution of arbitrary code within the application
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_cookie_values_in_the_standard_webview_database/" class="md-nav__link">
+        Storing Cookie values in the standard WebView database
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../insecure_settings_in_androidmanifest.xml/" class="md-nav__link">
+        Insecure settings in AndroidManifest.xml
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../insecure_settings_in_androidmanifest.xml._the_android_hasfragileuserdata_flag/" class="md-nav__link">
+        Insecure settings in AndroidManifest.xml. The android:hasFragileUserData flag
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../insecure_settings_in_androidmanifest.xml._the_android_requestlegacyexternalstorage_flag/" class="md-nav__link">
+        Insecure settings in AndroidManifest.xml. The android:requestLegacyExternalStorage flag
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          SSL-Pinning is missing or incorrectly implemented
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        SSL-Pinning is missing or incorrectly implemented
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommendations" class="md-nav__link">
+    Recommendations
+  </a>
+  
+    <nav class="md-nav" aria-label="Recommendations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-certificate" class="md-nav__link">
+    What is a certificate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-kinds-of-ssl-pinning-exist" class="md-nav__link">
+    What kinds of SSL-Pinning exist
+  </a>
+  
+    <nav class="md-nav" aria-label="What kinds of SSL-Pinning exist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#certificate-pinning" class="md-nav__link">
+    Certificate Pinning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-key-pinning" class="md-nav__link">
+    Public key Pinning
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-certificates-can-be-checked" class="md-nav__link">
+    What certificates can be checked
+  </a>
+  
+    <nav class="md-nav" aria-label="What certificates can be checked">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#okhttp" class="md-nav__link">
+    OkHttp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retrofit" class="md-nav__link">
+    Retrofit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#picasso" class="md-nav__link">
+    Picasso
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#httpurlconnection" class="md-nav__link">
+    HttpUrlConnection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#volley" class="md-nav__link">
+    Volley
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    Links
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ability_to_run_private_activity_indirectly/" class="md-nav__link">
+        Possibility to run private Activity indirectly
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../url_spoofing_possibility/" class="md-nav__link">
+        Possibility of URL spoofing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ability_to_open_an_arbitrary_url_in_webview/" class="md-nav__link">
+        Possibility to open an arbitrary URL in WebView
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../access_to_an_arbitrary_file/" class="md-nav__link">
+        Possibility to access an arbitrary file
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../access_to_an_arbitrary_contentprovider/" class="md-nav__link">
+        Possibility to access an arbitrary ContentProvider
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ability_to_access_an_arbitrary_file_via_contentprovider/" class="md-nav__link">
+        Possibility to access an arbitrary file using ContentProvider
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_3">
+          iOS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="iOS" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          iOS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_3_1" type="checkbox" id="__nav_3_3_1" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_3_1">
+          Storing keys/certificates
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Storing keys/certificates" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          Storing keys/certificates
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/storing_a_key_certificate_in_the_directory_resources_of_the_application_ios/" class="md-nav__link">
+        Storing a key/certificate in the directory/resources of the application
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/storing_a_private_key_certificate_protected_by_a_password_in_the_directory_resources_of_the_application_ios/" class="md-nav__link">
+        Storing a private key/certificate protected by a password in the directory/resources of the application
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/storing_a_public_key_certificate_in_the_directory_resources_of_the_application_ios/" class="md-nav__link">
+        Storing a public key/certificate in the directory/resources of the application
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/storing_a_private_key_certificate_that_is_not_protected_by_a_password_in_the_directory_resources_of_the_application_ios/" class="md-nav__link">
+        Storing a private key/certificate that is not protected by a password in the directory/resources of the application
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_3_2" type="checkbox" id="__nav_3_3_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_3_2">
+          Insecure storage of cryptographic key information
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Insecure storage of cryptographic key information" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Insecure storage of cryptographic key information
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/a_writable_keystore_ios/" class="md-nav__link">
+        A writable keystore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/a_keystore_with_write_permission_protected_by_a_weak_password_ios/" class="md-nav__link">
+        A writable keystore protected by a weak password
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/readable_file_keystore_ios/" class="md-nav__link">
+        A readable file keystore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/a_readable_keystore%2C_protected_by_a_weak_password%2C_with_private_keys_ios/" class="md-nav__link">
+        A readable keystore, protected by a weak password, with private keys
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/a_readable_keystore%2C_protected_by_a_weak_password%2C_with_public_keys_ios/" class="md-nav__link">
+        A readable keystore, protected by a weak password, with public keys
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/a_readable_keystore_containing_private_keys_protected_by_a_weak_password_ios/" class="md-nav__link">
+        A readable keystore containing private keys protected by a weak password
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/using_a_file_keystore_ios/" class="md-nav__link">
+        Using a file keystore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/a_keystore%2C_protected_by_weak_password%2C_containing_private_keys_ios/" class="md-nav__link">
+        A keystore containing private keys protected by a weak password
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/a_keystore%2C_protected_by_weak_password%2C_containing_public_keys_ios/" class="md-nav__link">
+        A keystore, protected by a weak password, containing public keys
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/a_keystore_containing_private_keys_protected_by_a_weak_password_ios/" class="md-nav__link">
+        A keystore containing private keys protected by a weak password
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/enabled_caching_of_network_requests_ios/" class="md-nav__link">
+        Enabled caching of network requests
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/output_of_sensitive_information_into_the_system_log_ios/" class="md-nav__link">
+        Output of sensitive information into the system log
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/insecure_app_transport_security_configuration_ios/" class="md-nav__link">
+        Insecure App Transport Security configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/application_does_not_use_overflow_protection_features_ios/" class="md-nav__link">
+        Application does not use overflow protection features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/presence_of_build_scripts_in_the_built_application_package_ios/" class="md-nav__link">
+        Presence of build scripts in the built application package
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/presence_of_podfile_in_the_built_application_package_ios/" class="md-nav__link">
+        Presence of Podfile in the built application package
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/storing_sensitive_information_in_the_keyboard_cache_ios/" class="md-nav__link">
+        Storing sensitive information in the keyboard cache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/storing_sensitive_information_in_nsuserdefaults_ios/" class="md-nav__link">
+        Storing sensitive information in NSUserDefaults
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/storing_sensitive_information_in_a_private_file_ios/" class="md-nav__link">
+        Storing sensitive information in a private file
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/storing_sensitive_information_in_the_application_source_code_ios/" class="md-nav__link">
+        Storing sensitive information in the application source code
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/storing_sensitive_information_in_binary_cookies_ios/" class="md-nav__link">
+        Storing sensitive information in Binary Cookies
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ios/storage_or_use_of_previously_found_sensitive_information_ios/" class="md-nav__link">
+        Storage or use of previously found sensitive information
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../faq/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommendations" class="md-nav__link">
+    Recommendations
+  </a>
+  
+    <nav class="md-nav" aria-label="Recommendations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-certificate" class="md-nav__link">
+    What is a certificate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-kinds-of-ssl-pinning-exist" class="md-nav__link">
+    What kinds of SSL-Pinning exist
+  </a>
+  
+    <nav class="md-nav" aria-label="What kinds of SSL-Pinning exist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#certificate-pinning" class="md-nav__link">
+    Certificate Pinning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-key-pinning" class="md-nav__link">
+    Public key Pinning
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-certificates-can-be-checked" class="md-nav__link">
+    What certificates can be checked
+  </a>
+  
+    <nav class="md-nav" aria-label="What certificates can be checked">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#okhttp" class="md-nav__link">
+    OkHttp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retrofit" class="md-nav__link">
+    Retrofit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#picasso" class="md-nav__link">
+    Picasso
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#httpurlconnection" class="md-nav__link">
+    HttpUrlConnection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#volley" class="md-nav__link">
+    Volley
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    Links
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="ssl-pinning-is-missing-or-incorrectly-implemented">SSL-Pinning is missing or incorrectly implemented</h1>
+<table class='noborder'>
+    <colgroup>
+      <col/>
+      <col/>
+    </colgroup>
+    <tbody>
+      <tr>
+        <td rowspan="2"><img src="../../../img/defekt_vysokij.png"/></td>
+        <td>Severity:<strong> ВЫСОКАЯ</strong></td>
+      </tr>
+      <tr>
+        <td>Detection method:<strong> SAST, APK</strong></td>
+      </tr>
+    </tbody>
+</table>
+<h2 id="description">Description</h2>
+<p>Insufficient attention to setting up proper client-server communication can lead to interception of traffic between application and server. The attacker model in this case can be very different. For example, public Wi-Fi networks, compromised network devices, an attacker on the same network as the device, etc.</p>
+<p>In absence or improper implementation of protection against traffic interception, a classic MiTM ("Man in the middle") attack can occur.</p>
+<p>The process of this attack is shown in the picture below:</p>
+<figure>
+<p><img alt="" src="../../../img/image14.png" /></p>
+<figcaption>Рис. 1. Схема атаки Man-In-The-Middle</figcaption>
+</figure>
+<p>This scheme shows the following:</p>
+<ol>
+<li>
+<p>Application accesses its server via an access point controlled by the attacker.</p>
+</li>
+<li>
+<p>A Proxy server is deployed on this access point. All traffic goes through it.</p>
+</li>
+<li>
+<p>When connecting to this access point, the client is prompted to install a root CA certificate in order to use Internet (via the Captive portal functionality).</p>
+</li>
+<li>
+<p>For each request that passes through the Proxy, it generates its own certificate signed by its root certificate. The same certificate is already installed on the client device.</p>
+</li>
+</ol>
+<p>In this configuration, all app traffic will be available to the attacker, as he or she pretends to be the end destination of the mobile device and gives his or her certificate with his or her key when establishing a "secure" connection. A secure connection is established with the Proxy server according to the classic scheme below. The server in this case is the attacker's Proxy:</p>
+<figure>
+<p><img alt="" src="../../../img/image15.png" /></p>
+<figcaption>Рис. 2. Процесс SSL-Handshake</figcaption>
+</figure>
+<p>On the other hand, the Proxy server makes a similar connection to the mobile application backend and sends it data coming from the client. But at that point, the Proxy server can fully read or modify the data that came to it from the mobile app.</p>
+<p>This attack is only possible if the application trusts the certificates stored in the user storage and if no SSL-Pinning protection is implemented. Nevertheless, such attacks are quite common.</p>
+<h2 id="recommendations">Recommendations</h2>
+<p>The main recommendation in this case is to use SSL-Pinning. The essence of this method is as follows. In the SSL-Handshake phase, after the second step, when the server sends us its public key certificate, the application verifies that certain parameters of this certificate match what the application expects to receive. This is some data that is "hardwired" into the application. And this is the data we expect to get from our server. This is shown schematically in the picture below.</p>
+<figure>
+<p><img alt="" src="../../../img/image16.png" /></p>
+<figcaption>Рис. 3. Процесс SSL-Pinning</figcaption>
+</figure>
+<p>In order to understand more precisely implementation details, it is necessary to understand what exactly and at what stages can be checked, and how it can be implemented.</p>
+<h3 id="what-is-a-certificate">What is a certificate</h3>
+<p>A certificate is an electronic document that allows you to verify the authenticity of its owner (user, service, system). It usually contains owner's public key, summary information about the certificate (owner's name, expiration date, etc.) and information about who issued the certificate.</p>
+<figure>
+<p><img alt="" src="../../../img/image17.png" /></p>
+</figure>
+<p>All data is cryptographically signed by the issuing organization (usually large trusted companies) and can therefore be verified at any time.</p>
+<h3 id="what-kinds-of-ssl-pinning-exist">What kinds of SSL-Pinning exist</h3>
+<h4 id="certificate-pinning">Certificate Pinning</h4>
+<p>The first implementation is Certificate Pinning. In this case, the certificate itself is checked, including the metadata (to whom the certificate was issued, expiration date, owner data, etc.). This implementation is the most secure because even a minor change in the certificate will cause a mismatch and will make it impossible to establish a connection.</p>
+<p>A certificate has an expiration date. Therefore, every time a new certificate is issued, a new version of the application must be released.</p>
+<h4 id="public-key-pinning">Public key Pinning</h4>
+<p>This is a simplified implementation of certificate check. During this check, only the public key is checked instead of the entire certificate. Since it is possible to update certificate without changing the public key, this way you do not have to update the application every time you change the certificate.</p>
+<p>However, companies should have a rotation policy for such keys, so that sooner or later the key will be updated.</p>
+<h3 id="what-certificates-can-be-checked">What certificates can be checked</h3>
+<ol>
+<li>Certificate of the destination server to connect.</li>
+<li>Guarantees almost 100% that it is your certificate, even if the root certificate authority has been compromised.</li>
+<li>If a certificate becomes invalid for any reason (either expired or compromised), it will not be possible to connect to the server until the application is updated.</li>
+<li>Allows the use of self-signed certificates. This can be useful during development.</li>
+<li>Certificate of an intermediate certification authority.</li>
+<li>By checking the intermediate certificate, you are trusting the intermediate CA.</li>
+<li>As long as you use the same certificate provider, any changes to the destination server certificates will work without updating the application.</li>
+<li>Certificate authority (CA) certificate (root certificate).</li>
+<li>Checking root certificate means that you trust the root certificate authority and any intermediaries using that certificate authority.</li>
+<li>If the root certificate is compromised, connection cannot be considered secure and all certificates must be changed immediately.</li>
+<li>The entire certificate chain.</li>
+<li>This is the most reliable check from a security point of view, because all possible changes in any of the certificates are checked.</li>
+<li>At the same time, this verification is the most difficult to maintain, because if any of the certificates involved in the chain change, the application must be updated.</li>
+</ol>
+<p>How to check</p>
+<p>For different libraries implementation will be its own, depending on the specific library and its version. But Android has a built-in mechanism for implementing Pinning at the system level, namely the networking configuration. The network communication configuration is an XML file that configures the network security settings for the Android application. This setting is specified by a special attribute in <strong><em>AndroidManifest.xml</em></strong> — <code>android:networkSecurityConfig</code>.</p>
+<p>Connection example:</p>
+<pre class="highlight"><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest ... &gt;
+    &lt;application android:networkSecurityConfig="@xml/network_security_config"
+                    ... &gt;
+        ...
+    &lt;/application&gt;
+&lt;/manifest&gt;
+</code></pre>
+<p>Network Security Config allows you to easily enable the Certificate Pinning mechanism in your application. However, it is worth to take into account certain nuances. Let's look at a configuration that at first glance looks like a properly configured one and see how it can be slightly improved:</p>
+<pre class="highlight"><code>&lt;network-security-config&gt;
+    &lt;domain-config&gt;
+        &lt;domain includeSubdomains="true"&gt;example.com&lt;/domain&gt;
+        &lt;pin-set&gt;
+            &lt;pin digest="SHA-256"&gt;7HIpactkIAq2Y49orFOOQKurWxmmSFZhBCoQYcRhJ3Y=&lt;/pin&gt;
+        &lt;/pin-set&gt;
+    &lt;/domain-config&gt;
+&lt;/network-security-config&gt;
+</code></pre>
+<p>This example has two small disadvantages:</p>
+<ol>
+<li>The certificate fingerprint (pin-set) does not have an expiration date.</li>
+<li>There is no backup certificate.</li>
+</ol>
+<p>If your certificate is about to expire and no expiration date is specified in the settings, the application will stop connecting to the server and generate an error. However, if an expiration date has been set and it expires, the application will switch to the trusted certificate authorities installed in the system. Instead of getting a non-functional application, you will get no SSL Pinning for some time until you update the certificate in the application.</p>
+<p>To avoid this, if you know the certificate to be used on your server after the current one expires, you can specify it immediately in the "backup certificates" settings.</p>
+<p>Here is an example of the <strong>most</strong> correct use of the Certificate Pinning functionality:</p>
+<pre class="highlight"><code>&lt;network-security-config&gt;
+    &lt;domain-config&gt;
+        &lt;domain includeSubdomains="true"&gt;example.com&lt;/domain&gt;
+        &lt;pin-set expiration="2021-01-01"&gt;
+            &lt;pin digest="SHA-256"&gt;7HIpactkIAq2Y49orFOOQKurWxmmSFZhBCoQYcRhJ3Y=&lt;/pin&gt;
+            &lt;!-- backup pin --&gt;
+            &lt;pin digest="SHA-256"&gt;fwza0LRMXouZHRC8Ei+4PyuldPDcf3UKgO/04cDM1oE=&lt;/pin&gt;
+        &lt;/pin-set&gt;
+    &lt;/domain-config&gt;
+&lt;/network-security-config&gt;
+</code></pre>
+<p>Despite all the conveniences of using the Network Security Config, some checks should be performed internally in the application code. For example, you still need to determine if your application performs hostname validation, because Network Security Config does not protect against this type of issue.</p>
+<p><strong>Also, before implementation, make sure that third-party libraries support Network Security Config. Otherwise, these security measures may cause problems in your application. Besides, Network Security Config is not supported by lower-level network connections, such as web sockets.</strong></p>
+<p>Here are some examples of the most popular networking libraries and how SSL Pinning can be implemented inside each of them.</p>
+<h4 id="okhttp">OkHttp</h4>
+<p>When implementing in OkHttp, you can use the class <a href="https://github.com/square/okhttp/wiki/HTTPS#certificate-pinning">CertificatePinner</a> class.</p>
+<pre class="highlight"><code>CertificatePinner certPinner = new CertificatePinner.Builder()
+        .add("appmattus.com",
+            "sha256/4hw5tz+scE+TW+mlai5YipDfFWn1dqvfLG+nU7tq1V8=")
+        .build();
+OkHttpClient okHttpClient = new OkHttpClient.Builder()
+        .certificatePinner(certPinner)
+        .build();
+</code></pre>
+<p>**In OkHttp you can use this functionality starting from version 2.1. But unfortunately, earlier versions are affected by the <a href="https://medium.com/square-corner-blog/vulnerability-in-okhttps-certificate-pinner-2a7326ad073b#.kkns7f3jk">vulnerability</a>, fixed only in versions higher than 2.7.5 and higher than 3.2.0. Make sure that the version of the library you are using is not affected by this vulnerability. **</p>
+<h4 id="retrofit">Retrofit</h4>
+<p>Retrofit is used on top of OkHttp, so its use is similar to operations with <code>OkHttpClient</code>, as shown in the example above.</p>
+<pre class="highlight"><code>Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("https://appmattus.com")
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(okHttpClient)
+        .build();
+</code></pre>
+<h4 id="picasso">Picasso</h4>
+<p>For Picasso, if you use OkHttp, similar to the example above, you must configure OkHttpClient. Picasso 2 does not currently support OkHttp 3, so an additional library <a href="https://github.com/JakeWharton/picasso2-okhttp3-downloader">Picasso 2 OkHttp3</a> may be required.</p>
+<pre class="highlight"><code>Picasso picasso = new Picasso.Builder(getApplicationContext())
+        .downloader(new OkHttpDownloader(okHttpClient))
+        .build();
+Picasso.setSingletonInstance(picasso);
+</code></pre>
+<p>Implementation using <code>UrlConnectionDownloader</code> is a bit more complicated. However, it is possible to implement a similar method as in the Volley library (described below) by overloading the <code>openConnection</code> method of the downloader and overriding <code>HostnameVerifier</code>.</p>
+<h4 id="httpurlconnection">HttpUrlConnection</h4>
+<p>If <code>HttpUrlConnection</code> is used, it is recommended to reconsider in favor of OkHttp. The version of <code>HttpUrlConnection</code> built into Android is fixed, so updates can be difficult.</p>
+<p>In the Android document "<a href="https://developer.android.com/training/articles/security-ssl.html#Pinning">Security with HTTPS and SSL</a>", the proposed implementation is based on pinning certificates with its own <strong>TrustManager</strong> and <strong>SSLSocketFactory</strong>. However, as with other APIs, this recommendation will include examples using SPKI.</p>
+<pre class="highlight"><code>private void validatePinning(
+        X509TrustManagerExtensions trustManagerExt,
+        HttpsURLConnection conn, Set&lt;String&gt; validPins)
+        throws SSLException {
+    String certChainMsg = "";
+    try {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        List&lt;X509Certificate&gt; trustedChain =
+                trustedChain(trustManagerExt, conn);
+        for (X509Certificate cert : trustedChain) {
+            byte[] publicKey = cert.getPublicKey().getEncoded();
+            md.update(publicKey, 0, publicKey.length);
+            String pin = Base64.encodeToString(md.digest(),
+                    Base64.NO_WRAP);
+            certChainMsg += "    sha256/" + pin + " : " +
+                    cert.getSubjectDN().toString() + "\n";
+            if (validPins.contains(pin)) {
+                return;
+            }
+        }
+    } catch (NoSuchAlgorithmException e) {
+        throw new SSLException(e);
+    }
+    throw new SSLPeerUnverifiedException("Certificate pinning " +
+            "failure\n  Peer certificate chain:\n" + certChainMsg);
+}
+private List&lt;X509Certificate&gt; trustedChain(
+        X509TrustManagerExtensions trustManagerExt,
+        HttpsURLConnection conn) throws SSLException {
+    Certificate[] serverCerts = conn.getServerCertificates();
+    X509Certificate[] untrustedCerts = Arrays.copyOf(serverCerts,
+            serverCerts.length, X509Certificate[].class);
+    String host = conn.getURL().getHost();
+    try {
+        return trustManagerExt.checkServerTrusted(untrustedCerts,
+                "RSA", host);
+    } catch (CertificateException e) {
+        throw new SSLException(e);
+    }
+}
+</code></pre>
+<p>This implementation shall be called like this:</p>
+<pre class="highlight"><code>TrustManagerFactory trustManagerFactory =
+        TrustManagerFactory.getInstance(
+                TrustManagerFactory.getDefaultAlgorithm());
+trustManagerFactory.init((KeyStore) null);
+// Find first X509TrustManager in the TrustManagerFactory
+X509TrustManager x509TrustManager = null;
+for (TrustManager trustManager : trustManagerFactory.getTrustManagers()) {
+    if (trustManager instanceof X509TrustManager) {
+        x509TrustManager = (X509TrustManager) trustManager;
+        break;
+    }
+}
+X509TrustManagerExtensions trustManagerExt =
+        new X509TrustManagerExtensions(x509TrustManager);
+...
+URL url = new URL("https://www.appmattus.com/");
+HttpsURLConnection urlConnection = 
+        (HttpsURLConnection) url.openConnection();
+urlConnection.connect();
+Set&lt;String&gt; validPins = Collections.singleton
+        ("4hw5tz+scE+TW+mlai5YipDfFWn1dqvfLG+nU7tq1V8=");
+validatePinning(trustManagerExt, urlConnection, validPins);
+</code></pre>
+<p>In this case, the call of <code>urlConnection.connect()</code> performs SSL Handshake, but does not transfer any data until <code>urlConnection.getInputStream()</code> is called.</p>
+<h4 id="volley">Volley</h4>
+<p>The standard way to use the Volley library is to Pinning certificates, as shown in the article "<a href="https://medium.com/@faruktoptas/android-security-tip-public-key-pinning-with-volley-library-fb85bf761857">Android Security Tip:</a><a href="https://medium.com/@faruktoptas/android-security-tip-public-key-pinning-with-volley-library-fb85bf761857"> </a><a href="https://medium.com/@faruktoptas/android-security-tip-public-key-pinning-with-volley-library-fb85bf761857">Public Key Pinning with Volley Library</a>". The GitHub project <a href="https://github.com/faruktoptas/volley-public-key-pinning">Public Key Pinning with Android Volley library</a> shows how <strong>SSLSocketFactory</strong> can be configured to bind to SPKI.</p>
+<p>An alternative method can be used in addition to the approaches listed above. It uses the <code>HostnameVerifier</code> class. This class is used to verify that the host name in the URL matches that specified in the certificate.</p>
+<p>You can override <code>HostnameVerifier</code> as follows:</p>
+<pre class="highlight"><code>RequestQueue requestQueue = Volley.newRequestQueue(appContext,
+        new HurlStack() {
+    @Override
+    protected HttpURLConnection createConnection(URL url) throws IOException {
+        HttpURLConnection connection = super.createConnection(url);
+        if (connection instanceof HttpsURLConnection) {
+            HostnameVerifier delegate =
+                    urlConnection.getHostnameVerifier();
+            HostnameVerifier pinningVerifier =
+                    new PinningHostnameVerifier(delegate);
+            urlConnection.setHostnameVerifier(pinningVerifier);
+        }
+        return connection;
+    }
+});
+...
+public static class PinningHostnameVerifier
+        implements HostnameVerifier {
+    private final HostnameVerifier delegate;
+    private PinningHostnameVerifier(HostnameVerifier delegate) {
+        this.delegate = delegate;
+    }
+    @Override
+    public boolean verify(String host, SSLSession sslSession) {
+        if (delegate.verify(host, sslSession)) {
+            try {
+                validatePinning(sslSession.getPeerCertificates(),
+                        host, validPins);
+                return true;
+            } catch (SSLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return false;
+    }
+}
+</code></pre>
+<h2 id="links">Links</h2>
+<ol>
+<li>
+<p><a href="https://developer.android.com/training/articles/security-config">Network security configuration  |  Android Developers</a></p>
+</li>
+<li>
+<p><a href="https://www.nowsecure.com/blog/2018/08/15/a-security-analysts-guide-to-network-security-configuration-in-android-p/">A Security Analyst’s Guide to Network Security Configuration in Android P</a></p>
+</li>
+<li>
+<p><a href="https://github.com/square/okhttp/wiki/HTTPS#certificate-pinning">GitHub - square/okhttp:</a><a href="https://github.com/square/okhttp/wiki/HTTPS#certificate-pinning"> </a><a href="https://github.com/square/okhttp/wiki/HTTPS#certificate-pinning">Square’s meticulous HTTP client for the JVM, Android, and GraalVM.</a></p>
+</li>
+<li>
+<p><a href="https://medium.com/square-corner-blog/vulnerability-in-okhttps-certificate-pinner-2a7326ad073b#.kkns7f3jk">Vulnerability in OkHttp’s Certificate Pinner</a></p>
+</li>
+<li>
+<p><a href="https://github.com/JakeWharton/picasso2-okhttp3-downloader">GitHub - JakeWharton/picasso2-okhttp3-downloader:</a><a href="https://github.com/JakeWharton/picasso2-okhttp3-downloader"> </a><a href="https://github.com/JakeWharton/picasso2-okhttp3-downloader">A OkHttp 3 downloader implementation for Picasso 2.</a></p>
+</li>
+<li>
+<p><a href="https://developer.android.com/training/articles/security-ssl.html#Pinning">Security with HTTPS and SSL  |  Android Developers</a></p>
+</li>
+<li>
+<p><a href="https://medium.com/@faruktoptas/android-security-tip-public-key-pinning-with-volley-library-fb85bf761857">Android Security Tip:</a><a href="https://medium.com/@faruktoptas/android-security-tip-public-key-pinning-with-volley-library-fb85bf761857"> </a><a href="https://medium.com/@faruktoptas/android-security-tip-public-key-pinning-with-volley-library-fb85bf761857">Public Key Pinning with Volley Library</a></p>
+</li>
+<li>
+<p><a href="https://github.com/faruktoptas/volley-public-key-pinning">GitHub - faruktoptas/volley-public-key-pinning:</a><a href="https://github.com/faruktoptas/volley-public-key-pinning"> </a><a href="https://github.com/faruktoptas/volley-public-key-pinning">Public key pinning with Android volley networking library</a></p>
+</li>
+</ol>
+
+              
+            </article>
+            
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../insecure_settings_in_androidmanifest.xml._the_android_requestlegacyexternalstorage_flag/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Insecure settings in AndroidManifest.xml. The android:requestLegacyExternalStorage flag" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Insecure settings in AndroidManifest.xml. The android:requestLegacyExternalStorage flag
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../ability_to_run_private_activity_indirectly/" class="md-footer__link md-footer__link--next" aria-label="Next: Possibility to run private Activity indirectly" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Possibility to run private Activity indirectly
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.tabs", "navigation.expand", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.shares", "content.code.annotate", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      
+    
+  </body>
+</html>

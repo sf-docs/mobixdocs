@@ -1,0 +1,2826 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
+    
+    
+      
+        <title>Storing sensitive information in NSUserDefaults - Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ffffff">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="white" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#storing-sensitive-information-in-nsuserdefaults" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Storing sensitive information in NSUserDefaults
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../gi/" class="md-tabs__link">
+        General information
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../ug/" class="md-tabs__link">
+        User guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../" class="md-tabs__link md-tabs__link--active">
+        Remediation Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../faq/" class="md-tabs__link">
+      FAQ
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../../gi/">General information</a>
+          
+            <label for="__nav_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="General information" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          General information
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../gi/product_overview/" class="md-nav__link">
+        Product Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../gi/user_workplace_requirements/" class="md-nav__link">
+        User Workplace Requirements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../gi/glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../../ug/">User guide</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="User guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          User guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/user_authentication/" class="md-nav__link">
+        User Authentication
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/main_menu/" class="md-nav__link">
+        Main Menu
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/projects/" class="md-nav__link">
+        Projects
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/rules/" class="md-nav__link">
+        Rules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/profile/" class="md-nav__link">
+        Profiles
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/scan_results/" class="md-nav__link">
+        Scan Results
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/scan_launch/" class="md-nav__link">
+        Scan Launch
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/testcases/" class="md-nav__link">
+        Test Cases
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/standarty/" class="md-nav__link">
+        Standards
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ug/user_profile/" class="md-nav__link">
+        User Profile
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ag/companies.md" class="md-nav__link">
+        None
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../">Remediation Guide</a>
+          
+            <label for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Remediation Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Remediation Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2">
+          Android
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Android" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Android
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_2_1" type="checkbox" id="__nav_3_2_1" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_1">
+          Insecure storage of cryptographic key information
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Insecure storage of cryptographic key information" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Insecure storage of cryptographic key information
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/a_writable_keystore/" class="md-nav__link">
+        A writable keystore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/a_keystore_with_write_permission_protected_by_a_weak_password/" class="md-nav__link">
+        A writable keystore protected by a weak password
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/readable_file_keystore/" class="md-nav__link">
+        A readable file keystore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/a_readable_keystore%2C_protected_by_a_weak_password%2C_with_private_keys/" class="md-nav__link">
+        A readable keystore, protected by a weak password, containing private keys
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/a_readable_keystore%2C_protected_by_a_weak_password%2C_with_public_keys/" class="md-nav__link">
+        A readable keystore, protected by a weak password, containing public keys
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/a_readable_keystore_containing_private_keys_protected_by_a_weak_password/" class="md-nav__link">
+        A readable keystore containing private keys protected by a weak password
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/using_a_file_keystore/" class="md-nav__link">
+        Using a file keystore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/a_keystore%2C_protected_by_weak_password%2C_containing_private_keys/" class="md-nav__link">
+        A keystore, protected by а weak password, containing private keys
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/a_keystore%2C_protected_by_weak_password%2C_containing_public_keys/" class="md-nav__link">
+        A keystore, protected by a weak password, containing public keys
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/a_keystore_containing_private_keys_protected_by_a_weak_password/" class="md-nav__link">
+        A keystore containing private keys protected by a weak password
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_2_2" type="checkbox" id="__nav_3_2_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_2">
+          Transmission of sensitive information in Activity
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Transmission of sensitive information in Activity" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Transmission of sensitive information in Activity
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/insecure_transmission_of_sensitive_information_in_activity/" class="md-nav__link">
+        Insecure transmission of sensitive information in Activity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/insecure_transmission_of_sensitive_information_in_external_activity/" class="md-nav__link">
+        Insecure transmission of sensitive information in external Activity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/insecure_transmission_of_sensitive_information_in_private_activity/" class="md-nav__link">
+        Insecure transmission of sensitive information in private Activity
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_2_3" type="checkbox" id="__nav_3_2_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_3">
+          Transmission of sensitive information in Service
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Transmission of sensitive information in Service" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Transmission of sensitive information in Service
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/insecure_transmission_of_sensitive_information_in_service/" class="md-nav__link">
+        Insecure transmission of sensitive information in Service
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/insecure_transmission_of_sensitive_information_in_external_service/" class="md-nav__link">
+        Insecure transmission of sensitive information in external Service
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/insecure_transmission_of_sensitive_information_in_internal_service/" class="md-nav__link">
+        Insecure transmission of sensitive information in internal Service
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_2_4" type="checkbox" id="__nav_3_2_4" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_4">
+          Sending sensitive information over the network
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Sending sensitive information over the network" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Sending sensitive information over the network
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/inclusion_of_sensitive_information_into_the_get_request_parameters/" class="md-nav__link">
+        Including sensitive information into the GET request parameters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/inclusion_of_sensitive_information_into_an_https_request/" class="md-nav__link">
+        Including sensitive information into an HTTPS request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/transmission_of_sensitive_information_in_an_http_request/" class="md-nav__link">
+        Sending sensitive information in an HTTP request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/transmission_of_sensitive_information_in_an_http_response/" class="md-nav__link">
+        Getting sensitive information in an HTTP response
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/inclusion_of_sensitive_information_into_an_https_response/" class="md-nav__link">
+        Getting sensitive information in an HTTPS response
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_2_5" type="checkbox" id="__nav_3_2_5" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_5">
+          Storing sensitive information
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Storing sensitive information" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Storing sensitive information
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/storing_sensitive_information_in_memory/" class="md-nav__link">
+        Storing sensitive information in memory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/storing_sensitive_information_in_a_public_file_outside_the_application_s_directory/" class="md-nav__link">
+        Storing sensitive information in a public file outside the application's directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/storing_sensitive_information_in_a_public_file_inside_the_application_s_directory/" class="md-nav__link">
+        Storing sensitive information in a public file inside the application's directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/storing_sensitive_information_in_a_private_file_outside_the_application_s_directory/" class="md-nav__link">
+        Storing sensitive information in a private file outside the application's directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/storing_sensitive_information_in_a_private_file_inside_the_application_s_directory/" class="md-nav__link">
+        Storing sensitive information in a private file inside the application's directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/storing_sensitive_information_in_a_public_protected_database/" class="md-nav__link">
+        Storing sensitive information in a public protected database
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/storing_sensitive_information_in_a_protected_database/" class="md-nav__link">
+        Storing sensitive information in a protected database
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/storing_sensitive_information_in_an_insecure_database/" class="md-nav__link">
+        Storing sensitive information in an unprotected database
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/storing_sensitive_information_in_a_public_unprotected_database/" class="md-nav__link">
+        Storing sensitive information in a public unprotected database
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/storing_sensitive_information_in_the_application_source_code/" class="md-nav__link">
+        Storing sensitive information in the application source code
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/storage_or_use_of_previously_found_sensitive_information/" class="md-nav__link">
+        Storage or use of previously found sensitive information
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/storing_sensitive_information_in_the_keyboard_cache/" class="md-nav__link">
+        Storing sensitive information in the keyboard cache
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_2_6" type="checkbox" id="__nav_3_2_6" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_6">
+          Storing keys/certificates
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Storing keys/certificates" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Storing keys/certificates
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/storing_a_private_key_certificate_that_is_not_protected_by_a_password_in_the_directory_resources_of_the_application/" class="md-nav__link">
+        Storing a private key/certificate that is not protected by a password in the directory/resources of the application
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/storing_a_public_key_certificate_in_the_directory_resources_of_the_application/" class="md-nav__link">
+        Storing a public key/certificate in the directory/resources of the application
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/storing_a_private_key_certificate_protected_by_a_password_in_the_directory_resources_of_the_application/" class="md-nav__link">
+        Storing a private key/certificate protected by a password in the directory/resources of the application
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/storing_a_key_certificate_in_the_directory_resources_of_the_application/" class="md-nav__link">
+        Storing a key/certificate in the directory/resources of the application
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/output_of_sensitive_information_into_the_system_log/" class="md-nav__link">
+        Output of sensitive information into the system log
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/insecure_signature_algorithm/" class="md-nav__link">
+        Insecure Signature Algorithm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/insufficient_length_of_a_signature_key/" class="md-nav__link">
+        Insufficient length of a signature key
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/transmission_of_sensitive_information_in_broadcastreceiver/" class="md-nav__link">
+        Transmission of sensitive information in BroadcastReceiver
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/transmission_of_sensitive_information_to_a_private_broadcastreceiver/" class="md-nav__link">
+        Transmission of sensitive information in a private BroadcastReceiver
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/transmission_of_sensitive_information_in_sql_query_parameters/" class="md-nav__link">
+        Transmission of sensitive information in SQL query parameters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/possibility_to_create_a_backup_copy_of_the_application/" class="md-nav__link">
+        Possibility to create a backup copy of the application
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/application_is_not_obfuscated/" class="md-nav__link">
+        Application is not obfuscated
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/weak_database_encryption_password/" class="md-nav__link">
+        Weak database encryption password
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/interception_of_the_database_encryption_password/" class="md-nav__link">
+        Interception of a database encryption password
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/an_application_allows_network_connections_via_http/" class="md-nav__link">
+        An application allows network connections via HTTP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/insecure_networking_configuration/" class="md-nav__link">
+        Insecure networking configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/potential_execution_of_arbitrary_code_within_the_application/" class="md-nav__link">
+        Potential execution of arbitrary code within the application
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/storing_cookie_values_in_the_standard_webview_database/" class="md-nav__link">
+        Storing Cookie values in the standard WebView database
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/insecure_settings_in_androidmanifest.xml/" class="md-nav__link">
+        Insecure settings in AndroidManifest.xml
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/insecure_settings_in_androidmanifest.xml._the_android_hasfragileuserdata_flag/" class="md-nav__link">
+        Insecure settings in AndroidManifest.xml. The android:hasFragileUserData flag
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/insecure_settings_in_androidmanifest.xml._the_android_requestlegacyexternalstorage_flag/" class="md-nav__link">
+        Insecure settings in AndroidManifest.xml. The android:requestLegacyExternalStorage flag
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/ssl-pinning_is_missing_or_incorrectly_realized/" class="md-nav__link">
+        SSL-Pinning is missing or incorrectly implemented
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/ability_to_run_private_activity_indirectly/" class="md-nav__link">
+        Possibility to run private Activity indirectly
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/url_spoofing_possibility/" class="md-nav__link">
+        Possibility of URL spoofing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/ability_to_open_an_arbitrary_url_in_webview/" class="md-nav__link">
+        Possibility to open an arbitrary URL in WebView
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/access_to_an_arbitrary_file/" class="md-nav__link">
+        Possibility to access an arbitrary file
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/access_to_an_arbitrary_contentprovider/" class="md-nav__link">
+        Possibility to access an arbitrary ContentProvider
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android/ability_to_access_an_arbitrary_file_via_contentprovider/" class="md-nav__link">
+        Possibility to access an arbitrary file using ContentProvider
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_3">
+          iOS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="iOS" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          iOS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_3_1" type="checkbox" id="__nav_3_3_1" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_3_1">
+          Storing keys/certificates
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Storing keys/certificates" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          Storing keys/certificates
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_a_key_certificate_in_the_directory_resources_of_the_application_ios/" class="md-nav__link">
+        Storing a key/certificate in the directory/resources of the application
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_a_private_key_certificate_protected_by_a_password_in_the_directory_resources_of_the_application_ios/" class="md-nav__link">
+        Storing a private key/certificate protected by a password in the directory/resources of the application
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_a_public_key_certificate_in_the_directory_resources_of_the_application_ios/" class="md-nav__link">
+        Storing a public key/certificate in the directory/resources of the application
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_a_private_key_certificate_that_is_not_protected_by_a_password_in_the_directory_resources_of_the_application_ios/" class="md-nav__link">
+        Storing a private key/certificate that is not protected by a password in the directory/resources of the application
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3_3_2" type="checkbox" id="__nav_3_3_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_3_2">
+          Insecure storage of cryptographic key information
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Insecure storage of cryptographic key information" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Insecure storage of cryptographic key information
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a_writable_keystore_ios/" class="md-nav__link">
+        A writable keystore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a_keystore_with_write_permission_protected_by_a_weak_password_ios/" class="md-nav__link">
+        A writable keystore protected by a weak password
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../readable_file_keystore_ios/" class="md-nav__link">
+        A readable file keystore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a_readable_keystore%2C_protected_by_a_weak_password%2C_with_private_keys_ios/" class="md-nav__link">
+        A readable keystore, protected by a weak password, with private keys
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a_readable_keystore%2C_protected_by_a_weak_password%2C_with_public_keys_ios/" class="md-nav__link">
+        A readable keystore, protected by a weak password, with public keys
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a_readable_keystore_containing_private_keys_protected_by_a_weak_password_ios/" class="md-nav__link">
+        A readable keystore containing private keys protected by a weak password
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../using_a_file_keystore_ios/" class="md-nav__link">
+        Using a file keystore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a_keystore%2C_protected_by_weak_password%2C_containing_private_keys_ios/" class="md-nav__link">
+        A keystore containing private keys protected by a weak password
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a_keystore%2C_protected_by_weak_password%2C_containing_public_keys_ios/" class="md-nav__link">
+        A keystore, protected by a weak password, containing public keys
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a_keystore_containing_private_keys_protected_by_a_weak_password_ios/" class="md-nav__link">
+        A keystore containing private keys protected by a weak password
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enabled_caching_of_network_requests_ios/" class="md-nav__link">
+        Enabled caching of network requests
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../output_of_sensitive_information_into_the_system_log_ios/" class="md-nav__link">
+        Output of sensitive information into the system log
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../insecure_app_transport_security_configuration_ios/" class="md-nav__link">
+        Insecure App Transport Security configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../application_does_not_use_overflow_protection_features_ios/" class="md-nav__link">
+        Application does not use overflow protection features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../presence_of_build_scripts_in_the_built_application_package_ios/" class="md-nav__link">
+        Presence of build scripts in the built application package
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../presence_of_podfile_in_the_built_application_package_ios/" class="md-nav__link">
+        Presence of Podfile in the built application package
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_sensitive_information_in_the_keyboard_cache_ios/" class="md-nav__link">
+        Storing sensitive information in the keyboard cache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Storing sensitive information in NSUserDefaults
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Storing sensitive information in NSUserDefaults
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommendations" class="md-nav__link">
+    Recommendations
+  </a>
+  
+    <nav class="md-nav" aria-label="Recommendations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encryption" class="md-nav__link">
+    Encryption
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decryption" class="md-nav__link">
+    Decryption
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    Links
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_sensitive_information_in_a_private_file_ios/" class="md-nav__link">
+        Storing sensitive information in a private file
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_sensitive_information_in_the_application_source_code_ios/" class="md-nav__link">
+        Storing sensitive information in the application source code
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storing_sensitive_information_in_binary_cookies_ios/" class="md-nav__link">
+        Storing sensitive information in Binary Cookies
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storage_or_use_of_previously_found_sensitive_information_ios/" class="md-nav__link">
+        Storage or use of previously found sensitive information
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../faq/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommendations" class="md-nav__link">
+    Recommendations
+  </a>
+  
+    <nav class="md-nav" aria-label="Recommendations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encryption" class="md-nav__link">
+    Encryption
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decryption" class="md-nav__link">
+    Decryption
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    Links
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="storing-sensitive-information-in-nsuserdefaults">Storing sensitive information in NSUserDefaults</h1>
+<table class='noborder'>
+    <colgroup>
+      <col/>
+      <col/>
+    </colgroup>
+    <tbody>
+      <tr>
+        <td rowspan="2"><img src="../../../img/defekt_srednij.png"/></td>
+        <td>Severity:<strong> MEDIUM</strong></td>
+      </tr>
+      <tr>
+        <td>Detection method:<strong> DAST, ФАЙЛЫ ПРИЛОЖЕНИЯ</strong></td>
+      </tr>
+    </tbody>
+</table>
+<h2 id="description">Description</h2>
+<p>An application stores sensitive information in a private file inside the application's directory.</p>
+<p>To understand exactly what needs to be protected, you have to analyze what kind of data is being handled and stored by the application and what part of that data is confidential. In such a situation, it is common to rely on legislation and common sense. There is no point in encrypting absolutely all the information the application stores. This can affect speed and stability of the application. Instead, you should clearly define what exactly is sensitive data for your application or company, and focus your attention on that data.</p>
+<p>It is generally assumed that as few confidential information as possible should be stored in a local storage (both internal and external). However, in most cases storing such information cannot be avoided. For example, in terms of usability, you should not force user to enter a complex password every time the application is launched. Most applications have to cache some authentication token locally. Personally identifiable information (PII) and other types of confidential data could also be retained if a specific scenario calls for it.</p>
+<p>Application can store data in different formats, one of which is NSUserDefaults.</p>
+<p>NSUserDefaults is designed to store relatively small amounts of frequently requested and rarely modified data. Other ways of using it may result in slower performance or more memory consumption than more appropriate solutions.</p>
+<p>Storing sensitive data using the NSUserDefaults mechanism in a public domain is not recommended. Since its physical representation is just a file in the file system of the device, located inside the application directory at the relative path <code>/Library/Preferences/com.yourcompany.appName.plist</code>. Values from this file can be obtained through local or cloud backups, or by exploiting various vulnerabilities.</p>
+<p>!!! note "Note!" Very often it is mistakenly thought that the data stored in the internal directory of an application is already protected by the sandbox mechanism and an attacker cannot get to it. There are many ways, ranging from a simple local or cloud-based application backup to physical access to the device and exploitation of various vulnerabilities. <strong>Plain text information put into the application's directory is not protected!</strong></p>
+<h2 id="recommendations">Recommendations</h2>
+<p>Any sensitive information that is stored on the device must be encrypted. This can be done in many ways. One of them is encryption based on a key derived from user data (password, pin code, etc.) using key strengthening algorithms (<a href="https://en.wikipedia.org/wiki/Key_stretching">Key Stretching</a>). This allows you to get an encryption key from a fairly simple password by applying the hash function to it several times along with a salt. The salt is a certain sequence of random data. A common mistake is to exclude salt from the algorithm. Salt gives the key much more entropy. Without it, it is much easier to retrieve/recover/find the key. Moreover, without using salt, two identical passwords will have the same hash value and, consequently, the same final encryption key value.</p>
+<p>In this case, since the key strengthening algorithm is used, there is no need to store the key somewhere. Each time the need for a key arises, it is enough to use the user's data to generate it.</p>
+<p>To encrypt and decrypt use the <code>CCCrypt</code> function with <code>kCCEncrypt</code> or <code>kCCDecrypt</code>. Since a block cipher is used, it is necessary to pad the message if it does not match the multiplicity of the block size. Using the <code>KCCOptionPKCS7Padding</code> parameter, define the padding type as PKCS7:</p>
+<h3 id="encryption">Encryption</h3>
+<pre class="highlight"><code>class func encryptData(_ clearTextData : Data, withPassword password : String) -&gt; Dictionary&lt;String, Data&gt;
+    {
+        var setupSuccess = true
+        var outDictionary = Dictionary&lt;String, Data&gt;.init()
+        var key = Data(repeating:0, count:kCCKeySizeAES256)
+        var salt = Data(count: 8)
+        salt.withUnsafeMutableBytes { (saltBytes: UnsafeMutablePointer&lt;UInt8&gt;) -&gt; Void in
+            let saltStatus = SecRandomCopyBytes(kSecRandomDefault, salt.count, saltBytes)
+            if saltStatus == errSecSuccess
+            {
+                let passwordData = password.data(using:String.Encoding.utf8)!
+                key.withUnsafeMutableBytes { (keyBytes : UnsafeMutablePointer&lt;UInt8&gt;) in
+                    let derivationStatus = CCKeyDerivationPBKDF(CCPBKDFAlgorithm(kCCPBKDF2), password, passwordData.count, saltBytes, salt.count, CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA512), 14271, keyBytes, key.count)
+                    if derivationStatus != Int32(kCCSuccess)
+                    {
+                        setupSuccess = false
+                    }
+                }
+            }
+            else
+            {
+                setupSuccess = false
+            }
+        }
+
+        var iv = Data.init(count: kCCBlockSizeAES128)
+        iv.withUnsafeMutableBytes { (ivBytes : UnsafeMutablePointer&lt;UInt8&gt;) in
+            let ivStatus = SecRandomCopyBytes(kSecRandomDefault, kCCBlockSizeAES128, ivBytes)
+            if ivStatus != errSecSuccess
+            {
+                setupSuccess = false
+            }
+        }
+
+        if (setupSuccess)
+        {
+            var numberOfBytesEncrypted : size_t = 0
+            let size = clearTextData.count + kCCBlockSizeAES128
+            var encrypted = Data.init(count: size)
+            let cryptStatus = iv.withUnsafeBytes {ivBytes in
+                encrypted.withUnsafeMutableBytes {encryptedBytes in
+                clearTextData.withUnsafeBytes {clearTextBytes in
+                    key.withUnsafeBytes {keyBytes in
+                        CCCrypt(CCOperation(kCCEncrypt),
+                                CCAlgorithm(kCCAlgorithmAES),
+                                CCOptions(kCCOptionPKCS7Padding + kCCModeCBC),
+                                keyBytes,
+                                key.count,
+                                ivBytes,
+                                clearTextBytes,
+                                clearTextData.count,
+                                encryptedBytes,
+                                size,
+                                &amp;numberOfBytesEncrypted)
+                        }
+                    }
+                }
+            }
+            if cryptStatus == Int32(kCCSuccess)
+            {
+                encrypted.count = numberOfBytesEncrypted
+                outDictionary["EncryptionData"] = encrypted
+                outDictionary["EncryptionIV"] = iv
+                outDictionary["EncryptionSalt"] = salt
+            }
+        }
+
+        return outDictionary;
+    }
+</code></pre>
+<p>And, accordingly, the decryption function:</p>
+<h3 id="decryption">Decryption</h3>
+<pre class="highlight"><code>class func decryp(fromDictionary dictionary : Dictionary&lt;String, Data&gt;, withPassword password : String) -&gt; Data
+    {
+        var setupSuccess = true
+        let encrypted = dictionary["EncryptionData"]
+        let iv = dictionary["EncryptionIV"]
+        let salt = dictionary["EncryptionSalt"]
+        var key = Data(repeating:0, count:kCCKeySizeAES256)
+        salt?.withUnsafeBytes { (saltBytes: UnsafePointer&lt;UInt8&gt;) -&gt; Void in
+            let passwordData = password.data(using:String.Encoding.utf8)!
+            key.withUnsafeMutableBytes { (keyBytes : UnsafeMutablePointer&lt;UInt8&gt;) in
+                let derivationStatus = CCKeyDerivationPBKDF(CCPBKDFAlgorithm(kCCPBKDF2), password, passwordData.count, saltBytes, salt!.count, CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA512), 14271, keyBytes, key.count)
+                if derivationStatus != Int32(kCCSuccess)
+                {
+                    setupSuccess = false
+                }
+            }
+        }
+
+        var decryptSuccess = false
+        let size = (encrypted?.count)! + kCCBlockSizeAES128
+        var clearTextData = Data.init(count: size)
+        if (setupSuccess)
+        {
+            var numberOfBytesDecrypted : size_t = 0
+            let cryptStatus = iv?.withUnsafeBytes {ivBytes in
+                clearTextData.withUnsafeMutableBytes {clearTextBytes in
+                encrypted?.withUnsafeBytes {encryptedBytes in
+                    key.withUnsafeBytes {keyBytes in
+                        CCCrypt(CCOperation(kCCDecrypt),
+                                CCAlgorithm(kCCAlgorithmAES128),
+                                CCOptions(kCCOptionPKCS7Padding + kCCModeCBC),
+                                keyBytes,
+                                key.count,
+                                ivBytes,
+                                encryptedBytes,
+                                (encrypted?.count)!,
+                                clearTextBytes,
+                                size,
+                                &amp;numberOfBytesDecrypted)
+                        }
+                    }
+                }
+            }
+            if cryptStatus! == Int32(kCCSuccess)
+            {
+                clearTextData.count = numberOfBytesDecrypted
+                decryptSuccess = true
+            }
+        }
+
+        return decryptSuccess ? clearTextData : Data.init(count: 0)
+    }
+</code></pre>
+<p>To verify that these functions work and that the encryption/decryption is correct, you can use a simple example:</p>
+<h3 id="example">Example</h3>
+<pre class="highlight"><code>class func encryptionTest()
+    {
+        let clearTextData = "some clear text to encrypt".data(using:String.Encoding.utf8)!
+        let dictionary = encryptData(clearTextData, withPassword: "123456")
+        let decrypted = decryp(fromDictionary: dictionary, withPassword: "123456")
+        let decryptedString = String(data: decrypted, encoding: String.Encoding.utf8)
+        print("decrypted cleartext result - ", decryptedString ?? "Error: Could not convert data to string")
+    }
+</code></pre>
+<p>In this example, we package all the necessary information and return it as a dictionary, so that all the pieces can later be used to successfully decrypt data. This requires storing initialization vector (IV) and salt either in Keychain or on the server.</p>
+<h2 id="links">Links</h2>
+<ol>
+<li><a href="https://developer.apple.com/">https://developer.apple.com/</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Key_stretching">https://en.wikipedia.org/wiki/Key_stretching</a></li>
+<li><a href="https://en.wikipedia.org/wiki/PBKDF2">https://en.wikipedia.org/wiki/PBKDF2</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Padding_(cryptography)#PKCS7">https://en.wikipedia.org/wiki/Padding_(cryptography)#PKCS7</a></li>
+</ol>
+
+              
+            </article>
+            
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../storing_sensitive_information_in_the_keyboard_cache_ios/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Storing sensitive information in the keyboard cache" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Storing sensitive information in the keyboard cache
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../storing_sensitive_information_in_a_private_file_ios/" class="md-footer__link md-footer__link--next" aria-label="Next: Storing sensitive information in a private file" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Storing sensitive information in a private file
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.tabs", "navigation.expand", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.shares", "content.code.annotate", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      
+    
+  </body>
+</html>
